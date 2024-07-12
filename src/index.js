@@ -1,8 +1,8 @@
-import path from 'node:path'
-import fs from 'node:fs'
-import core from '@actions/core'
+const path = require('node:path')
+const fs = require('node:fs')
+const core = require('@actions/core')
 
-import { Client } from 'ssh2'
+const { Client } = require('ssh2')
 
 const remoteDirPath = core.getInput('remote-dir-path')
 const localDirPath = core.getInput('local-dir-path')

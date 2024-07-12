@@ -1,9 +1,6 @@
 name: 'Upload sftp files'
 description: 'Upload a list of files separated by comma to a sftp server'
 inputs:
-  filenames:
-    description: 'File names separated by comma'
-    required: true
   host:
     description: 'SFTP host'
     required: true
@@ -16,6 +13,9 @@ inputs:
     required: true
   password:
     description: 'SFTP password'
+    required: true
+  filenames:
+    description: 'File names separated by comma'
     required: true
   remote-dir-path:
     description: 'Remote directory path'
