@@ -1,0 +1,33 @@
+name: 'Upload sftp files'
+description: 'Upload a list of files separated by comma to a sftp server'
+inputs:
+  filenames:
+    description: 'File names separated by comma'
+    required: true
+  host:
+    description: 'SFTP host'
+    required: true
+  port:
+    description: 'SFTP port'
+    required: true
+    default: '22'
+  username:
+    description: 'SFTP username'
+    required: true
+  password:
+    description: 'SFTP password'
+    required: true
+  remote-dir-path:
+    description: 'Remote directory path'
+    required: true
+  local-dir-path:
+    description: 'Local directory path'
+    required: true
+    default: '.'
+  delete-files-after-upload:
+    description: 'Delete files after upload, to activate set to ''true'''
+    required: true
+    default: 'false'
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
