@@ -10,11 +10,11 @@ const host = core.getInput('host')
 const port = +core.getInput('port')
 const username = core.getInput('username')
 const password = core.getInput('password')
-const filenames = core.getInput('filenames')
+const fileNames = core.getInput('file-names')
 const deleteFilesAfterUpload = core.getInput('delete-files-after-upload') === 'true'
 
 
-const filesToUpload = filenames
+const filesToUpload = fileNames
   .split(',')
   .map(filename => filename.trim())
   .filter(filename => filename !== '')
@@ -32,7 +32,26 @@ const credentials = {
   password,
 }
 
-console.log(`It will be attempted to upload the files with the following files: ${filenames}`)
+console.log(`It will be attempted to upload the files with the following files: ${fileNames}`)
+
+if (filesToUpload.length === 0) {
+  console.log('No files provided to upload')
+  console.log('Please provide at least one file name to upload')
+  core.setFailed('No files provided to upload')
+  throw new Error('No files provided to upload')
+}
+
+console.log('Verifying if the files exist locally')
+filesToUpload.forEach(item => {
+  if (!fs.existsSync(item.localPath)) {
+    console.log(`File does not exist: ${item.localPath}`)
+    core.setFailed(`File does not exist: ${item.localPath}`)
+    throw new Error(`File does not exist: ${item.localPath}`)
+  }
+  console.log(`File exists: ${item.localPath}`)
+})
+console.log('All files exist locally')
+console.log('Starting SFTP connection')
 
 /**
  * @param {import('ssh2').Client} conn

@@ -1,23 +1,58 @@
-# Hello world javascript action
+# Upload Sftp Files Action
 
-This action prints "Hello World" or "Hello" + the name of a person to greet to the log.
+This action uploads a list of files separated by comma to a SFTP server
 
 ## Inputs
 
-### `who-to-greet`
+### `host`
 
-**Required** The name of the person to greet. Default `"World"`.
+**Required** The host of the remote server.
+
+### `port`
+
+The port of the remote server. Default is `22`.
+
+### `username`
+
+**Required** The username of the remote server.
+
+### `password`
+
+**Required** The password of the remote server.
+
+### `file-names`
+
+**Required** The file names to upload to the remote server, separated by commas.
+Example: `registry.json,package.json`
+
+### `remote-dir-path`
+
+**Required** The remote directory path to upload files to.
+
+### `local-dir-path`
+
+The local directory path to upload files from. Default is `.`.
+
+### `delete-files-after-upload`
+
+If set to `true`, the files will be deleted from the local server after upload. Default is `false`.
+
 
 ## Outputs
 
-### `time`
-
-The time we greeted you.
+None
 
 ## Example usage
 
 ```yaml
-uses: actions/hello-world-javascript-action@e76147da8e5c81eaf017dede5645551d4b94427b
+uses: juniorUsca/upload-sftp-files-action@v2
 with:
-  who-to-greet: 'Mona the Octocat'
+  host: 'example.com'
+  port: '22'
+  username: 'user'
+  password: 'password'
+  file-names: 'registry.json,package.json'
+  remote-dir-path: '/path/to/remote/dir'
+  local-dir-path: '/path/to/local/dir'
+  delete-files-after-upload: 'true'
 ```
